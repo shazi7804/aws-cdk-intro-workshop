@@ -6,11 +6,22 @@ For example, fork [CDK Intro Workshop][CDK Workshop] demo step-by-step.
 
 - [AWS Cloud9](https://aws.amazon.com/cloud9/)
 
+## CDK commands
+
+- [cdk init](#cdk-project-initial)
+- [cdk synth](#cdk-synth)
+- [cdk doctor](#cdk-doctor)
+- [cdk diff](#cdk-diff)
+- [cdk bootstrap](#cdk-bootstrap)
+- [cdk deploy](#cdk-deploy)
+- [cdk destroy](#cleanup)
+
+
 ## WorkShop
 
-**If you not use `Cloud9` environment, please this step first [How to install CDK](##how-to-install-cdk)**
+**If you not use `Cloud9` environment, please this step first [How to install CDK](#how-to-install-aws-cdk)**
 
-### CDK project initial 
+### CDK Project initial 
 
 1. Checking your environment and up to date version.
 
