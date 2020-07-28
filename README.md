@@ -1,6 +1,6 @@
 # AWS CDK Intro WorkShop of Typescript
 
-For example, fork [CDK Intro Workshop][CDK Workshop] demo step-by-step.
+For example, fork [CDK Workshop](https://cdkworkshop.com/) demo step-by-step.
 
 ## Environment
 
@@ -15,7 +15,6 @@ For example, fork [CDK Intro Workshop][CDK Workshop] demo step-by-step.
 - [cdk bootstrap](#cdk-bootstrap)
 - [cdk deploy](#cdk-deploy)
 - [cdk destroy](#cleanup)
-
 
 ## WorkShop
 
