@@ -1,13 +1,14 @@
-# AWS CDK Intro WorkShop
+# AWS CDK Intro WorkShop of Typescript
+
+For example, fork [CDK Intro Workshop][CDK Workshop] demo step-by-step.
 
 ## Environment
 
 - [AWS Cloud9](https://aws.amazon.com/cloud9/)
--
 
 ## WorkShop
 
-**If you not use `Cloud9` environment, please this step first [How to install CDK](how-to-install-cdk)**
+**If you not use `Cloud9` environment, please this step first [How to install CDK](##how-to-install-cdk)**
 
 ### CDK project initial 
 
@@ -92,6 +93,26 @@ As you can see, this template includes four resources:
 - **AWS::SNS::Subscription** - the subscription between the queue and the topic
 - **AWS::SQS::QueuePolicy** - the IAM policy which allows this topic to send messages to the queue
 
+### cdk doctor
+
+Inspect the current command-line environment and configurations, and collect information that can be useful for troubleshooting problems. It is usually a good idea to include the information provided by this command when submitting a bug report.
+
+```
+$ cdk doctor
+```
+
+Will output the environment informations.
+
+```
+ℹ️ CDK Version: 1.51.0 (build 8c2d53c)
+ℹ️ AWS environment variables:
+  - AWS_CLOUDWATCH_HOME = /opt/aws/apitools/mon
+  - AWS_PATH = /opt/aws
+  - AWS_AUTO_SCALING_HOME = /opt/aws/apitools/as
+  - AWS_ELB_HOME = /opt/aws/apitools/elb
+ℹ️ No CDK environment variables
+```
+
 ### cdk diff
 
 Before deploy, confirm the difference before and after changes.
@@ -128,17 +149,95 @@ Resources
 
 ### cdk bootstrap
 
+Bootstrapping an environment
+
 The first time you deploy an AWS CDK app into an environment (account/region), you’ll need to install a “bootstrap stack”. This stack includes resources that are needed for the toolkit’s operation. For example, the stack includes an S3 bucket that is used to store templates and assets during the deployment process.
 
 ```
+$ cdk bootstrap
+```
+
+Then:
+
+```
+   Bootstrapping environment aws://<your_account_id>/us-east-1...
+CDKToolkit: creating CloudFormation changeset...
+   Environment aws://<your_account_id>/us-east-1 bootstrapped.
 ```
 
 ### cdk deploy
 
+Let’s deploy
 
+```
+$ cdk deploy
+```
 
-## How to install CDK
+You should see a warning like the following:
 
+```
+IAM Statement Changes
+┌───┬────────────────────┬────────┬────────────────────┬────────────────────┬───────────────────────┐
+│   │ Resource           │ Effect │ Action             │ Principal          │ Condition             │
+├───┼────────────────────┼────────┼────────────────────┼────────────────────┼───────────────────────┤
+│ + │ ${CdkWorkshopQueue │ Allow  │ sqs:SendMessage    │ Service:sns.amazon │ "ArnEquals": {        │
+│   │ .Arn}              │        │                    │ aws.com            │   "aws:SourceArn": "$ │
+│   │                    │        │                    │                    │ {CdkWorkshopTopic}"   │
+│   │                    │        │                    │                    │ }                     │
+└───┴────────────────────┴────────┴────────────────────┴────────────────────┴───────────────────────┘
+(NOTE: There may be security-related changes not in this list. See https://github.com/aws/aws-cdk/issues/1299)
 
+Do you wish to deploy these changes (y/n)? y
+```
+
+This is warning you that deploying the app entails some risk. Since we need to allow the topic to send messages to the queue, enter **y** to deploy the stack and create the resources.
+
+Output should look like the following, where ACCOUNT-ID is your account ID, REGION is the region in which you created the app, and STACK-ID is the unique identifier for your stack:
+
+```
+CdkWorkshopStack: deploying...
+CdkWorkshopStack: creating CloudFormation changeset...
+
+   CdkWorkshopStack
+
+Stack ARN:
+arn:aws ...
+```
+
+## Confirm your stack
+
+- CloudFormation
+
+![](img/confirm_cloudformation.png)
+
+- SQS
+
+![](img/confirm_sqs.png)
+
+## Cleanup
+
+To avoid unexpected charges to your account, make sure you clean up your CDK stack.
+
+You can either delete the stack through the AWS CloudFormation console or use `cdk destroy`:
+
+```
+$ cdk destory 
+```
+
+## How to install AWS CDK
+
+[AWS Cloud Development Kit (AWS CDK)](https://github.com/aws/aws-cdk)
+
+Install or update the [AWS CDK CLI] from npm (requires [Node.js ≥ 10.13.0](https://nodejs.org/download/release/latest-v10.x/)). We recommend using a version in [Active LTS](https://nodejs.org/en/about/releases/)
+⚠️ versions `13.0.0` to `13.6.0` are not supported due to compatibility issues with our dependencies.
+
+```bash
+$ npm i -g aws-cdk
+```
+
+## References
+
+- [CDK Workshop](https://cdkworkshop.com/)
+- [Examples](https://github.com/aws-samples/aws-cdk-examples)
 
 
